@@ -23,7 +23,7 @@ public class Item extends ObjectBase {
         this.isVisible = false;
     }
 
-    public void show(){
+    public void show() {
         this.isVisible = true;
     }
 
@@ -33,6 +33,21 @@ public class Item extends ObjectBase {
 
     public void canBeTaken(boolean canBeTaken) {
         this.canBeTaken = canBeTaken;
+    }
+
+    public String toString() {
+        String desc = "";
+        if (isVisible) {
+            desc = super.toString() + "\n";
+            if (canBeTaken) {
+                desc += "it can be taken";
+            } else {
+                desc += "it can't be taken";
+            }
+        } else {
+            desc = "there's no item";
+        }
+        return desc;
     }
 
 }

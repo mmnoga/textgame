@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeviceTest {
-    Device unswitchableLamp = new Device("lamp", "lamp description",
+    private Device unswitchableLamp = new Device("lamp", "lamp description",
             true, false,
             false,false);
 
@@ -19,7 +19,7 @@ class DeviceTest {
         assertEquals("can not be turned off", unswitchableLamp.turnOff());
     }
 
-    Device unvisibleLamp = new Device("lamp", "lamp description",
+    private Device unvisibleLamp = new Device("lamp", "lamp description",
             false, false,
             false,true);
 
@@ -33,7 +33,7 @@ class DeviceTest {
         assertEquals("there's no device", unvisibleLamp.turnOff());
     }
 
-    Device turnedOnLamp = new Device("lamp", "lamp description",
+    private Device turnedOnLamp = new Device("lamp", "lamp description",
             true, false,
             true,true);
 
@@ -48,7 +48,7 @@ class DeviceTest {
         assertEquals("it's already turned off", turnedOnLamp.turnOff());
     }
 
-    Device lamp = new Device("lamp", "lamp description",
+    private Device lamp = new Device("lamp", "lamp description",
             true, false,
             false,true);
 
@@ -61,6 +61,13 @@ class DeviceTest {
     void visibleSwitchOnCanBeSwitchedDeviceShoudReturnItSBeenTurnedOffResponse(){
         lamp.turnOn();
         assertEquals("it's been turned off", lamp.turnOff());
+    }
+
+    private final String lampDesc = "lamp (lamp description)";
+
+    @Test
+    void toStringShouldReturnDeviceDescription(){
+        assertEquals(lampDesc, lamp.toString());
     }
 
 }
