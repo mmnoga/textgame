@@ -19,8 +19,12 @@ public class Item extends ObjectBase {
         return isVisible;
     }
 
-    public void isVisible(boolean isVisible) {
-        this.isVisible = isVisible;
+    public void hide() {
+        this.isVisible = false;
+    }
+
+    public void show(){
+        this.isVisible = true;
     }
 
     public boolean canBeTaken() {
