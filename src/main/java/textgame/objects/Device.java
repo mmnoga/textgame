@@ -67,4 +67,15 @@ public class Device extends Item {
         this.canBeSwitch = canBeSwitch;
     }
 
+    public String toString() {
+        String desc = "";
+        desc = getName() + " (" + getDescription() + ")" + "\n";
+        if (isSwitch) {
+            desc += "it's switch on";
+        } else {
+            desc += "it's switch off";
+        }
+        return desc;
+    }
+
 }
