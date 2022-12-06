@@ -1,6 +1,6 @@
 package textgame.objects;
 
-public class Device extends Item{
+public class Device extends Item {
     private boolean isSwitch;
     private boolean canBeSwitch;
 
@@ -9,35 +9,61 @@ public class Device extends Item{
     }
 
     public Device(String name, String description,
-                  boolean isVisible, boolean canBeTaken){
+                  boolean isVisible, boolean canBeTaken) {
         super(name, description, isVisible, canBeTaken);
     }
 
     public Device(String name, String description,
                   boolean isVisible, boolean canBeTaken,
-                  boolean isSwitch, boolean canBeSwitch){
+                  boolean isSwitch, boolean canBeSwitch) {
         super(name, description, isVisible, canBeTaken);
         this.isSwitch = isSwitch;
         this.canBeSwitch = canBeSwitch;
     }
 
-    public boolean isSwitch(){
+    public boolean isSwitch() {
         return isSwitch;
     }
 
-    public void turnOn(){
-        this.isSwitch = true;
+    public String turnOn() {
+        if (isVisible()) {
+            if (canBeSwitch) {
+                if (isSwitch) {
+                    return "it's already turned on";
+                } else {
+                    isSwitch = true;
+                    return "it's been turned on";
+                }
+            } else {
+                return "can not be turned on";
+            }
+        } else {
+            return "there's no device";
+        }
     }
 
-    public void turnOff(){
-        this.isSwitch = false;
+    public String turnOff() {
+        if (isVisible()) {
+            if (canBeSwitch) {
+                if (!isSwitch) {
+                    return "it's already turned off";
+                } else {
+                    isSwitch = false;
+                    return "it's been turned off";
+                }
+            } else {
+                return "can not be turned off";
+            }
+        } else {
+            return "there's no device";
+        }
     }
 
-    public boolean canBeSwitch(){
+    public boolean canBeSwitch() {
         return canBeSwitch;
     }
 
-    public void canBeSwitch(boolean canBeSwitch){
+    public void canBeSwitch(boolean canBeSwitch) {
         this.canBeSwitch = canBeSwitch;
     }
 
