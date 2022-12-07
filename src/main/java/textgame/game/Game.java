@@ -1,7 +1,9 @@
 package textgame.game;
 
+import textgame.helpers.Parser;
 import textgame.objects.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,13 +138,23 @@ public class Game {
     public String parseCommand(List<String> commands) {
         String response = "";
         if (commands.size() == 1) {
-            response = "handle one word command";
+            response = Parser.executeOneWordCommand(commands);
         } else if (commands.size() == 2) {
             response = "handle two words command";
         } else {
             response = "command not recognized!";
         }
         return response;
+    }
+
+    public void helpDescription() {
+        System.out.println("available commands: me, help");
+        System.out.println("please enter a singe command or a command with object");
+        System.out.println("enter quit to end the game");
+    }
+
+    public void playerDescription() {
+        System.out.println(getPlayer().toString());
     }
 
 }
