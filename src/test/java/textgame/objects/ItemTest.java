@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemTest {
-    private Item key = new Item("key", "key description",true,false);
-    private final String keyDesc = "key (key description)\nit can't be taken";
-    private Item unvisibleKey = new Item("key", "key description",false,false);
+    private Item item;
 
     @Test
-    void toStringShouldReturnItemDescription(){
-        assertEquals(keyDesc, key.toString());
-    }
-
-    @Test
-    void toStringShouldReturnThereSNoItemForUnvisibleItem(){
-        assertEquals("there's no item", unvisibleKey.toString());
+    void shouldReturnItemObject(){
+        item = Item
+                .builder()
+                .name("sample item")
+                .description("sample item description")
+                .isVisible(true)
+                .canBeTaken(true)
+                .build();
+        assertTrue(item instanceof Item);
     }
 
 }

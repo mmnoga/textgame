@@ -4,21 +4,39 @@ public class Device extends Item {
     private boolean isSwitch;
     private boolean canBeSwitch;
 
-    public Device(String name, String description) {
-        super(name, description);
-    }
-
-    public Device(String name, String description,
-                  boolean isVisible, boolean canBeTaken) {
-        super(name, description, isVisible, canBeTaken);
-    }
-
-    public Device(String name, String description,
-                  boolean isVisible, boolean canBeTaken,
-                  boolean isSwitch, boolean canBeSwitch) {
+    Device(String name, String description,
+           boolean isVisible, boolean canBeTaken,
+           boolean isSwitch, boolean canBeSwitch) {
         super(name, description, isVisible, canBeTaken);
         this.isSwitch = isSwitch;
         this.canBeSwitch = canBeSwitch;
+    }
+
+    public static Builder<? extends Builder> builder() {
+        return new Builder<>();
+    }
+
+    public static class Builder<S extends Builder<S>> extends Item.Builder<S> {
+        protected boolean isSwitch;
+        protected boolean canBeSwitch;
+
+        Builder() {
+        }
+
+        public S isSwitch(boolean isSwitch) {
+            this.isSwitch = isSwitch;
+            return (S) this;
+        }
+
+        public S canBeSwitch(boolean canBeSwitch) {
+            this.canBeSwitch = canBeSwitch;
+            return (S) this;
+        }
+
+        @Override
+        public Device build() {
+            return new Device(name, description, isVisible, canBeTaken, isSwitch, canBeSwitch);
+        }
     }
 
     public boolean isSwitch() {

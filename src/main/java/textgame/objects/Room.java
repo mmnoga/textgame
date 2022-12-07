@@ -2,15 +2,31 @@ package textgame.objects;
 
 public class Room extends Container {
 
-    public Room(String name, String description, ItemList items) {
-        super(name, description, items);
+    Room(String name, String description, boolean isVisible, boolean canBeTaken, ItemList items) {
+        super(name, description, isVisible, canBeTaken, items);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends Container.Builder<Builder> {
+        @Override
+        public Room build() {
+            return new Room(name, description, isVisible, canBeTaken, items);
+        }
     }
 
     public String toString() {
         String desc = "";
         desc = getName() + " (" + getDescription() + ")" + "\n";
         desc += "items inside:\n";
-        desc += getItems().toString();
+        if (getItems() != null) {
+            desc += getItems().toString();
+        } else {
+            desc += "no items";
+        }
         return desc;
     }
+
 }

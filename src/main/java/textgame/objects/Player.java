@@ -3,11 +3,33 @@ package textgame.objects;
 public class Player extends Container {
     private Room room;
 
-    public Player(String name, String description,
-                  ItemList items,
-                  Room room) {
-        super(name, description, items);
+    Player(String name, String description,
+           boolean isVisible, boolean canBeTaken,
+           ItemList items,
+           Room room) {
+        super(name, description, isVisible, canBeTaken, items);
         this.room = room;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends Container.Builder<Builder> {
+        private Room room;
+
+        public Builder room(Room room) {
+            this.room = room;
+            return this;
+        }
+
+        @Override
+        public Player build() {
+            return new Player(name, description,
+                    isVisible, canBeTaken,
+                    items,
+                    room);
+        }
     }
 
     public Room getPosition() {
@@ -18,7 +40,7 @@ public class Player extends Container {
         String desc = "";
         desc = getName() + " (" + getDescription() + ")" + "\n";
         desc += "equipment:\n";
-        if (!getItems().isEmpty()) {
+        if (getItems() != null) {
             desc += getItems().toString();
         } else {
             desc += "no items";

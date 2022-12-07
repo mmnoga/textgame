@@ -4,15 +4,38 @@ public class Item extends ObjectBase {
     private boolean isVisible;
     private boolean canBeTaken;
 
-    public Item(String name, String description) {
-        super(name, description);
-    }
-
-    public Item(String name, String description,
-                boolean isVisible, boolean canBeTaken) {
+    Item(String name, String description,
+         boolean isVisible, boolean canBeTaken) {
         super(name, description);
         this.isVisible = isVisible;
         this.canBeTaken = canBeTaken;
+    }
+
+    public static Builder<? extends Builder> builder() {
+        return new Builder<>();
+    }
+
+    public static class Builder<S extends Builder<S>> extends ObjectBase.Builder<S> {
+        protected boolean isVisible;
+        protected boolean canBeTaken;
+
+        Builder() {
+        }
+
+        public S isVisible(boolean isVisible) {
+            this.isVisible = isVisible;
+            return (S) this;
+        }
+
+        public S canBeTaken(boolean canBeTaken) {
+            this.canBeTaken = canBeTaken;
+            return (S) this;
+        }
+
+        @Override
+        public Item build() {
+            return new Item(name, description, isVisible, canBeTaken);
+        }
     }
 
     public boolean isVisible() {
