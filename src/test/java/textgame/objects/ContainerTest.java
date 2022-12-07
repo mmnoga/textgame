@@ -2,6 +2,9 @@ package textgame.objects;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ContainerTest {
@@ -97,11 +100,7 @@ class ContainerTest {
                 .items(tableItems)
                 .build();
         ItemList warehouseItems = new ItemList();
-        warehouseItems.add(trunk);
-        warehouseItems.add(lamp);
-        warehouseItems.add(table);
-        warehouseItems.add(safe);
-
+        warehouseItems.addAll(Arrays.asList(trunk,lamp,table,safe));
         warehouse = Room
                 .builder()
                 .name("warehouse")
