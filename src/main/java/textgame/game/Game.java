@@ -1,28 +1,11 @@
-package textgame.objects;
+package textgame.game;
 
-import org.junit.jupiter.api.Test;
+import textgame.objects.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class Game {
+    private Player player;
 
-class ContainerTest {
-    private Container container;
-    private Container warehouse;
-
-    @Test
-    void shouldReturnContainerObject() {
-        container = Container
-                .builder()
-                .name("sample container")
-                .description("sample container description")
-                .isVisible(true)
-                .canBeTaken(true)
-                .items(null)
-                .build();
-        assertTrue(container instanceof Container);
-    }
-
-    @Test
-    void shouldReturnContainerDescription() {
+    public Game() {
         Item paper = Item
                 .builder()
                 .name("paper")
@@ -68,10 +51,9 @@ class ContainerTest {
                 .builder()
                 .name("trunk")
                 .description("big, wooden box")
-                .isVisible(true)
                 .canBeTaken(false)
                 .canBeOpen(true)
-                .isOpen(true)
+                .isOpen(false)
                 .items(trunkItems)
                 .build();
         ItemList safeItems = new ItemList();
@@ -82,7 +64,7 @@ class ContainerTest {
                 .description("secured unbreakable container, to open the code is needed")
                 .isVisible(true)
                 .canBeOpen(true)
-                .isOpen(true)
+                .isOpen(false)
                 .canBeTaken(false)
                 .items(safeItems)
                 .build();
@@ -97,18 +79,29 @@ class ContainerTest {
                 .items(tableItems)
                 .build();
         ItemList warehouseItems = new ItemList();
-        warehouseItems.add(trunk);
         warehouseItems.add(lamp);
         warehouseItems.add(table);
         warehouseItems.add(safe);
-
-        warehouse = Room
+        warehouseItems.add(trunk);
+        Room warehouse = Room
                 .builder()
                 .name("warehouse")
                 .description("old, creepy and completely dark place")
                 .items(warehouseItems)
                 .build();
-        System.out.println(warehouse.toString());
+        ItemList playerItems = new ItemList();
+        playerItems.add(torch);
+        player = Player
+                .builder()
+                .name("Dewey")
+                .description("fearless treasure hunter")
+                .isVisible(true)
+                .items(playerItems)
+                .build();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
 }

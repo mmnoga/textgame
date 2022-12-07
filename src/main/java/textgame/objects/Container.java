@@ -38,4 +38,26 @@ public class Container extends Item {
         this.items = items;
     }
 
+    public String toString() {
+        String desc = "";
+        if (isVisible()) {
+            desc = getName() + " (" + getDescription() + ")";
+            if (canBeTaken()) {
+                desc += "\n";
+                desc += "it can be taken";
+            } else {
+                desc += "it can't be taken";
+            }
+            if (getItems() != null) {
+                desc += "\nitems on the " + getName() + ":";
+                desc += "\n" + getItems().toString();
+            } else {
+                desc += "there's no items on the " + getName();
+            }
+        } else {
+            desc = "there's no item";
+        }
+        return desc;
+    }
+
 }
