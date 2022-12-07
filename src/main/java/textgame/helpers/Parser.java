@@ -7,15 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    private static List<String> oneWordCommands  = new ArrayList<>(Arrays.asList("help","tools","me"));
-    private static List<String> twoWordsCommands = new ArrayList<>(Arrays.asList("take","drop","open","close","turnon","turnoff"));
-    private static List<String > items = new ArrayList<>(Arrays.asList("key","paper","trunk","table","lamp", "torch","safe","treasure"));
+    private static List<String> oneWordCommands = new ArrayList<>(Arrays.asList("help", "tools", "me"));
+    private static List<String> twoWordsCommands = new ArrayList<>(Arrays.asList("take", "drop", "open", "close", "turnon", "turnoff"));
+    private static List<String> items = new ArrayList<>(Arrays.asList("key", "paper", "trunk", "table", "lamp", "torch", "safe", "treasure"));
 
-    public static String executeOneWordCommand(List<String> commandList){
+    public static String executeOneWordCommand(List<String> commandList) {
         String response = "";
         String command = commandList.get(0);
-        if(oneWordCommands.contains(command)){
-            switch(command){
+        if (oneWordCommands.contains(command)) {
+            switch (command) {
                 case "me":
                     TextGame.game.playerDescription();
                     break;
@@ -23,9 +23,11 @@ public class Parser {
                     TextGame.game.helpDescription();
                     break;
                 default:
-                    response = command + " not recognized!";
+                    response = command + " not implemented!";
                     break;
             }
+        } else {
+            response = command + " not recognized command!";
         }
         return response;
     }

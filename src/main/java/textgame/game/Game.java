@@ -139,6 +139,7 @@ public class Game {
         String response = "";
         if (commands.size() == 1) {
             response = Parser.executeOneWordCommand(commands);
+
         } else if (commands.size() == 2) {
             response = "handle two words command";
         } else {
