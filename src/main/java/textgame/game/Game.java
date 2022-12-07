@@ -2,6 +2,9 @@ package textgame.game;
 
 import textgame.objects.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
     private Player player;
 
@@ -102,6 +105,44 @@ public class Game {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public List<String> getCommandWordListFromString(String command) {
+        List<String> commandWordList = new ArrayList<>();
+        String[] words = command.split(" ");
+
+        for (String w : words) {
+            commandWordList.add(w);
+        }
+        return commandWordList;
+    }
+
+    public String executeCommand(String command) {
+        String response = "";
+        List<String> commandWordList;
+        String lowerCaseCommand = command.trim().toLowerCase();
+
+        if (!lowerCaseCommand.equals("quit")) {
+            if (command.equals("")) {
+                response = "please enter a command!";
+            } else {
+                commandWordList = getCommandWordListFromString(lowerCaseCommand);
+                response = parseCommand(commandWordList);
+            }
+        }
+        return response;
+    }
+
+    public String parseCommand(List<String> commands) {
+        String response = "";
+        if (commands.size() == 1) {
+            response = "handle one word command";
+        } else if (commands.size() == 2) {
+            response = "handle two words command";
+        } else {
+            response = "command not recognized!";
+        }
+        return response;
     }
 
 }
