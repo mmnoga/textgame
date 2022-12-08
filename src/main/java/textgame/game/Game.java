@@ -151,7 +151,7 @@ public class Game {
     }
 
     public void helpDescription() {
-        System.out.println("available commands: me, help");
+        System.out.println("available commands: me, look, help, turnon, turnoff");
         System.out.println("please enter a singe command or a command with object");
         System.out.println("enter quit to end the game");
     }
