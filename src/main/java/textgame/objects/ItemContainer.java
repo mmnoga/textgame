@@ -74,7 +74,7 @@ public class ItemContainer extends Container {
     public String toString() {
         String desc = "";
         if (isVisible()) {
-            desc = getName() + " (" + getDescription() + ")" + "\n";
+            desc = getName().toUpperCase() + " (" + getDescription() + ")" + "\n";
             if (canBeTaken()) {
                 desc += "it can be taken";
             } else {

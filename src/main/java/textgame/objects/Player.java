@@ -38,8 +38,8 @@ public class Player extends Container {
 
     public String toString() {
         String desc = "";
-        desc = getName() + " (" + getDescription() + ")" + "\n";
-        desc += "equipment:\n";
+        desc = "you're " + getName().toUpperCase() + " - " + getDescription() + "\n";
+        desc += "your equipment:\n";
         if (getItems() != null) {
             desc += getItems().toString();
         } else {

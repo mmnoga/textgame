@@ -45,7 +45,7 @@ public class ObjectBase {
     }
 
     public String toString() {
-        return name + " (" + description + ")";
+        return name.toUpperCase() + " (" + description + ")";
     }
 
 }

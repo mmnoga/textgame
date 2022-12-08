@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    private static List<String> oneWordCommands = new ArrayList<>(Arrays.asList("help", "tools", "me"));
+    private static List<String> oneWordCommands = new ArrayList<>(Arrays.asList("help", "tools", "me", "look"));
     private static List<String> twoWordsCommands = new ArrayList<>(Arrays.asList("take", "drop", "open", "close", "turnon", "turnoff"));
     private static List<String> items = new ArrayList<>(Arrays.asList("key", "paper", "trunk", "table", "lamp", "torch", "safe", "treasure"));
 
@@ -19,6 +19,9 @@ public class Parser {
                 case "me":
                     TextGame.game.playerDescription();
                     break;
+                case "look":
+                    TextGame.game.roomDescription();
+                    break;
                 case "help":
                     TextGame.game.helpDescription();
                     break;
@@ -28,6 +31,35 @@ public class Parser {
             }
         } else {
             response = command + " not recognized command!";
+        }
+        return response;
+    }
+
+    public static String executeTwoWordsCommand(List<String> commandList) {
+        String response = "";
+        String command = commandList.get(0);
+        String object = commandList.get(1);
+        boolean error = false;
+        if (!twoWordsCommands.contains(command)) {
+            response = command + " not recognized command!\n";
+            error = true;
+        }
+        if (!items.contains(object)) {
+            response = object + " not recognized object!\n";
+            error = true;
+        }
+        if (!error) {
+            switch (command) {
+                case "turnon":
+                    response = TextGame.game.turnOn(object);
+                    break;
+                case "turnoff":
+                    response = TextGame.game.turnOff(object);
+                    break;
+                default:
+                    response = "not implemented!";
+                    break;
+            }
         }
         return response;
     }

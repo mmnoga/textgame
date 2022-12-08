@@ -19,7 +19,7 @@ public class Room extends Container {
 
     public String toString() {
         String desc = "";
-        desc = getName() + " (" + getDescription() + ")" + "\n";
+        desc = getName().toUpperCase() + " (" + getDescription() + ")" + "\n";
         desc += "items inside:\n";
         if (getItems() != null) {
             desc += getItems().toString();

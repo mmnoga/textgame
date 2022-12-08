@@ -41,12 +41,11 @@ public class Container extends Item {
     public String toString() {
         String desc = "";
         if (isVisible()) {
-            desc = getName() + " (" + getDescription() + ")";
+            desc = getName().toUpperCase() + " (" + getDescription() + ")";
             if (canBeTaken()) {
-                desc += "\n";
-                desc += "it can be taken";
+                desc += "\nit can be taken";
             } else {
-                desc += "it can't be taken";
+                desc += "\nit can't be taken";
             }
             if (getItems() != null) {
                 desc += "\nitems on the " + getName() + ":";

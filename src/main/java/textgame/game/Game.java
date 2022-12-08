@@ -56,6 +56,7 @@ public class Game {
                 .builder()
                 .name("trunk")
                 .description("big, wooden box")
+                .isVisible(true)
                 .canBeTaken(false)
                 .canBeOpen(true)
                 .isOpen(false)
@@ -102,6 +103,7 @@ public class Game {
                 .description("fearless treasure hunter")
                 .isVisible(true)
                 .items(playerItems)
+                .room(warehouse)
                 .build();
     }
 
@@ -141,7 +143,7 @@ public class Game {
             response = Parser.executeOneWordCommand(commands);
 
         } else if (commands.size() == 2) {
-            response = "handle two words command";
+            response = Parser.executeTwoWordsCommand(commands);
         } else {
             response = "command not recognized!";
         }
@@ -158,4 +160,59 @@ public class Game {
         System.out.println(getPlayer().toString());
     }
 
+    public void roomDescription(){
+        System.out.println(getPlayer().getPosition().getItems().toString());
+    }
+
+    public String turnOn(String device) {
+        String response = "";
+        Item itemPlayer = player.getItems().thisObject(device);
+        Item itemRoom = player.getPosition().getItems().thisObject(device);
+        if (itemPlayer == null && itemRoom == null) {
+            response = "there's no that item!";
+            return response;
+        }
+        if (itemPlayer != null) {
+            if (!(itemPlayer instanceof Device)) {
+                response = "can't turn on this item!";
+            } else {
+                ((Device) itemPlayer).turnOn();
+                response = "device's been turned on!";
+            }
+        } else {
+            if (!(itemRoom instanceof Device)) {
+                response = "can't turn on this item!";
+            } else {
+                ((Device) itemRoom).turnOn();
+                response = "device's been turned on!";
+            }
+        }
+        return response;
+    }
+
+    public String turnOff(String device) {
+        String response = "";
+        Item itemPlayer = player.getItems().thisObject(device);
+        Item itemRoom = player.getPosition().getItems().thisObject(device);
+        if (itemPlayer == null && itemRoom == null) {
+            response = "there's no that item!";
+            return response;
+        }
+        if (itemPlayer != null) {
+            if (!(itemPlayer instanceof Device)) {
+                response = "can't turn off this item!";
+            } else {
+                ((Device) itemPlayer).turnOff();
+                response = "device's been turned off!";
+            }
+        } else {
+            if (!(itemRoom instanceof Device)) {
+                response = "can't turn off this item!";
+            } else {
+                ((Device) itemRoom).turnOn();
+                response = "device's been turned off!";
+            }
+        }
+        return response;
+    }
 }

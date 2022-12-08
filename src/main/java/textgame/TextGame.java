@@ -29,6 +29,6 @@ public class TextGame {
             }
             System.out.println(response);
         } while (!"quit".equals(input));
-
     }
+
 }

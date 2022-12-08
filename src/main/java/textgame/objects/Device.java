@@ -87,7 +87,7 @@ public class Device extends Item {
 
     public String toString() {
         String desc = "";
-        desc = getName() + " (" + getDescription() + ")" + "\n";
+        desc = getName().toUpperCase() + " (" + getDescription() + ")" + "\n";
         if (isSwitch) {
             desc += "it's switch on";
         } else {
