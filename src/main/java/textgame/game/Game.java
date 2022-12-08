@@ -15,21 +15,21 @@ public class Game {
                 .builder()
                 .name("paper")
                 .description("a piece of paper with code: 6-3-9")
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(true)
                 .build();
         Item key = Item
                 .builder()
                 .name("key")
                 .description("big, metal")
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(true)
                 .build();
         Item treasure = Item
                 .builder()
                 .name("treasure")
                 .description("$1000000 in cash!")
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(true)
                 .build();
         Device torch = Device
@@ -38,7 +38,7 @@ public class Game {
                 .description("an electric device using batteries")
                 .canBeSwitch(true)
                 .isSwitch(false)
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(true)
                 .build();
         Device lamp = Device
@@ -47,7 +47,7 @@ public class Game {
                 .description("it's hanging from the celling on a metal chain")
                 .canBeSwitch(true)
                 .isSwitch(false)
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(false)
                 .build();
         ItemList trunkItems = new ItemList();
@@ -56,7 +56,7 @@ public class Game {
                 .builder()
                 .name("trunk")
                 .description("big, wooden box")
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(false)
                 .canBeOpen(true)
                 .isOpen(false)
@@ -68,7 +68,7 @@ public class Game {
                 .builder()
                 .name("safe")
                 .description("secured unbreakable container, to open the code is needed")
-                .isVisible(true)
+                .isVisible(false)
                 .canBeOpen(true)
                 .isOpen(false)
                 .canBeTaken(false)
@@ -80,7 +80,7 @@ public class Game {
                 .builder()
                 .name("table")
                 .description("old, round and scratched")
-                .isVisible(true)
+                .isVisible(false)
                 .canBeTaken(false)
                 .items(tableItems)
                 .build();
@@ -160,7 +160,7 @@ public class Game {
         System.out.println(getPlayer().toString());
     }
 
-    public void roomDescription(){
+    public void roomDescription() {
         System.out.println(getPlayer().getPosition().getItems().toString());
     }
 
@@ -178,6 +178,7 @@ public class Game {
             } else {
                 ((Device) itemPlayer).turnOn();
                 response = "device's been turned on!";
+                showObject();
             }
         } else {
             if (!(itemRoom instanceof Device)) {
@@ -185,6 +186,7 @@ public class Game {
             } else {
                 ((Device) itemRoom).turnOn();
                 response = "device's been turned on!";
+                showObject();
             }
         }
         return response;
@@ -204,6 +206,7 @@ public class Game {
             } else {
                 ((Device) itemPlayer).turnOff();
                 response = "device's been turned off!";
+                hideObjects();
             }
         } else {
             if (!(itemRoom instanceof Device)) {
@@ -211,8 +214,24 @@ public class Game {
             } else {
                 ((Device) itemRoom).turnOn();
                 response = "device's been turned off!";
+                hideObjects();
             }
         }
         return response;
     }
+
+    public void hideObjects() {
+        ItemList items = getPlayer().getPosition().getItems();
+        for (Item item : items) {
+            item.hide();
+        }
+    }
+
+    public void showObject(){
+        ItemList items = getPlayer().getPosition().getItems();
+        for (Item item : items) {
+            item.show();
+        }
+    }
+
 }

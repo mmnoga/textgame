@@ -57,9 +57,20 @@ class ItemContainerTest {
                 .isOpen(true)
                 .canBeOpen(true)
                 .build();
-
         System.out.println(itemContainer.toString());
+    }
 
+    @Test
+    void toStringShouldReturnEmptyStringForNotVisibleItemContainer(){
+        itemContainer = ItemContainer
+                .builder()
+                .name("sample item container")
+                .description("sample item container description")
+                .isVisible(false)
+                .canBeTaken(true)
+                .build();
+        String result = "";
+        assertEquals(result, itemContainer.toString());
     }
 
 }

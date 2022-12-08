@@ -9,12 +9,14 @@ public class ItemList extends ArrayList<Item> {
         if (this.size() > 0) {
             int itemsCount = 1;
             for (Item i : this) {
-                if (itemsCount == this.size()) {
-                    desc += i.toString();
-                } else {
-                    desc += i.toString() + "\n";
+                if (i.isVisible()) {
+                    if (itemsCount == this.size()) {
+                        desc += i.toString();
+                    } else {
+                        desc += i.toString() + "\n";
+                    }
+                    itemsCount++;
                 }
-                itemsCount++;
             }
         }
         return desc;

@@ -110,4 +110,17 @@ class ContainerTest {
         System.out.println(warehouse.toString());
     }
 
+    @Test
+    void toStringShouldReturnEmptyStringForNotVisibleContainer(){
+        container = Container
+                .builder()
+                .name("sample container")
+                .description("sample container description")
+                .isVisible(false)
+                .canBeTaken(true)
+                .build();
+        String result = "";
+        assertEquals(result, container.toString());
+    }
+
 }

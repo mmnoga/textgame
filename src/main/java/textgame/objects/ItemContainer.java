@@ -76,30 +76,28 @@ public class ItemContainer extends Container {
         if (isVisible()) {
             desc = getName().toUpperCase() + " (" + getDescription() + ")" + "\n";
             if (canBeTaken()) {
-                desc += "it can be taken";
+                desc += "\tit can be taken";
             } else {
-                desc += "it can't be taken";
+                desc += "\tit can't be taken";
             }
             if (canBeOpen) {
                 desc += "\n";
                 if (isOpen) {
-                    desc += "it's open";
+                    desc += "\tit's open";
                     if (getItems() != null) {
-                        desc += "\nitems inside:";
+                        desc += "\n\titems inside:";
                         if (!getItems().isEmpty()) {
-                            desc += "\n" + getItems().toString();
+                            desc += "\n\t" + getItems().toString();
                         } else {
-                            desc += "\n" + "no items";
+                            desc += "\n\t" + "no items";
                         }
                     } else {
-                        desc += "\nit's empty";
+                        desc += "\n\tit's empty";
                     }
                 } else {
-                    desc += "it's closed";
+                    desc += "\tit's closed";
                 }
             }
-        } else {
-            desc = "there's no item";
         }
         return desc;
     }

@@ -43,18 +43,16 @@ public class Container extends Item {
         if (isVisible()) {
             desc = getName().toUpperCase() + " (" + getDescription() + ")";
             if (canBeTaken()) {
-                desc += "\nit can be taken";
+                desc += "\n\tit can be taken";
             } else {
-                desc += "\nit can't be taken";
+                desc += "\n\tit can't be taken";
             }
             if (getItems() != null) {
-                desc += "\nitems on the " + getName() + ":";
-                desc += "\n" + getItems().toString();
+                desc += "\n\titems on the " + getName() + ":";
+                desc += "\n\t" + getItems().toString();
             } else {
-                desc += "there's no items on the " + getName();
+                desc += "\tthere's no items on the " + getName();
             }
-        } else {
-            desc = "there's no item";
         }
         return desc;
     }

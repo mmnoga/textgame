@@ -19,4 +19,17 @@ class ItemTest {
         assertTrue(item instanceof Item);
     }
 
+    @Test
+    void toStringShouldReturnEmptyStringForNotVisibleItem(){
+        item = Item
+                .builder()
+                .name("sample item")
+                .description("sample item description")
+                .isVisible(false)
+                .canBeTaken(true)
+                .build();
+        String result = "";
+        assertEquals(result, item.toString());
+    }
+
 }

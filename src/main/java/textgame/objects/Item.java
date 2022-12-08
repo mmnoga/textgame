@@ -63,12 +63,10 @@ public class Item extends ObjectBase {
         if (isVisible) {
             desc = super.toString() + "\n";
             if (canBeTaken) {
-                desc += "it can be taken";
+                desc += "\tit can be taken";
             } else {
-                desc += "it can't be taken";
+                desc += "\tit can't be taken";
             }
-        } else {
-            desc = "there's no item";
         }
         return desc;
     }
