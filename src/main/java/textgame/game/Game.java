@@ -22,7 +22,7 @@ public class Game {
                 .builder()
                 .name("key")
                 .description("big, metal")
-                .isVisible(false)
+                .isVisible(true)
                 .canBeTaken(true)
                 .build();
         Item treasure = Item
@@ -38,7 +38,7 @@ public class Game {
                 .description("an electric device using batteries")
                 .canBeSwitch(true)
                 .isSwitch(false)
-                .isVisible(false)
+                .isVisible(true)
                 .canBeTaken(true)
                 .build();
         Device lamp = Device
@@ -220,6 +220,95 @@ public class Game {
         return response;
     }
 
+    private void moveItem(Item item, ItemList from, ItemList to) {
+        from.remove(item);
+        to.add(item);
+    }
+
+    private ItemList getAllObject(Room room) {
+        ItemList roomItems = room.getItems();
+        ItemList allItems = new ItemList();
+        if (roomItems != null) {
+            for (Item item : roomItems) {
+                switch (item.getClass().getSimpleName()) {
+                    case "Device":
+                        allItems.add(item);
+                        break;
+                    case "Container":
+                        allItems.add(item);
+                        ItemList containerItems = (((Container) item).getItems());
+                        for (Item i : containerItems) {
+                            allItems.add(i);
+                        }
+                        break;
+                    case "ItemContainer":
+                        allItems.add(item);
+                        ItemList itemContainerItems = (((ItemContainer) item).getItems());
+                        for (Item i : itemContainerItems) {
+                            allItems.add(i);
+                        }
+                        break;
+                }
+            }
+        }
+        return allItems;
+    }
+
+    public String take(String object) {
+        String response = "";
+        if (player.getItems().thisObject(object) != null) {
+            return response = "you have got this item!";
+        }
+        ItemList roomItems = player.getPosition().getItems();
+        if (roomItems != null) {
+            for (Item item : roomItems) {
+                switch (item.getClass().getSimpleName()) {
+                    case "Device":
+                        if (item.getName().equals(object)) {
+                            moveItem(item, player.getPosition().getItems(), player.getItems());
+                            response = "item has been taken!";
+                        }
+                        break;
+                    case "Container":
+                        ItemList containerItems = (((Container) item).getItems());
+                        for (Item i : containerItems) {
+                            if (i.getName().equals(object)) {
+                                containerItems.remove(i);
+                                player.getItems().add(i);
+                                response = "item has been taken!";
+                                break;
+                            }
+                        }
+                        break;
+                    case "ItemContainer":
+                        ItemList itemContainerItems = (((ItemContainer) item).getItems());
+                        for (Item i : itemContainerItems) {
+                            if (i.getName().equals(object)) {
+                                itemContainerItems.remove(i);
+                                player.getItems().add(i);
+                                response = "item has been taken!";
+                                break;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+        return response;
+    }
+
+    public String drop(String object) {
+        String response = "";
+        Item item = player.getItems().thisObject(object);
+        if (item == null) {
+            response = "you don't have this item!";
+        } else {
+            moveItem(item, player.getItems(), player.getPosition().getItems());
+            response = "item has been dropped!";
+        }
+        return response;
+    }
+
     public void hideObjects() {
         ItemList items = getPlayer().getPosition().getItems();
         for (Item item : items) {
@@ -227,7 +316,7 @@ public class Game {
         }
     }
 
-    public void showObject(){
+    public void showObject() {
         ItemList items = getPlayer().getPosition().getItems();
         for (Item item : items) {
             item.show();

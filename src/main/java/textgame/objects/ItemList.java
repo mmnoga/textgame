@@ -16,6 +16,8 @@ public class ItemList extends ArrayList<Item> {
                         desc += i.toString() + "\n";
                     }
                     itemsCount++;
+                } else {
+                    desc = "no items!";
                 }
             }
         }

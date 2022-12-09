@@ -56,6 +56,12 @@ public class Parser {
                 case "turnoff":
                     response = TextGame.game.turnOff(object);
                     break;
+                case "take":
+                    response = TextGame.game.take(object);
+                    break;
+                case "drop":
+                    response = TextGame.game.drop(object);
+                    break;
                 default:
                     response = "not implemented!";
                     break;

@@ -71,6 +71,10 @@ public class ItemContainer extends Container {
         }
     }
 
+    public boolean isOpen(){
+        return isOpen;
+    }
+
     public String toString() {
         String desc = "";
         if (isVisible()) {

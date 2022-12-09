@@ -123,4 +123,26 @@ class ContainerTest {
         assertEquals(result, container.toString());
     }
 
+    @Test
+    void toStringTest(){
+        Item key = Item
+                .builder()
+                .name("key")
+                .description("big, metal")
+                .isVisible(true)
+                .canBeTaken(true)
+                .build();
+        ItemList tableItems = new ItemList();
+        tableItems.add(key);
+        Container table = Container
+                .builder()
+                .name("table")
+                .description("old, round and scratched")
+                .isVisible(true)
+                .canBeTaken(false)
+                .items(tableItems)
+                .build();
+        System.out.println(table.getItems());
+    }
+
 }
