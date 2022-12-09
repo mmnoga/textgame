@@ -15,7 +15,7 @@ public class Game {
                 .builder()
                 .name("paper")
                 .description("a piece of paper with code: 6-3-9")
-                .isVisible(false)
+                .isVisible(true)
                 .canBeTaken(true)
                 .build();
         Item key = Item
@@ -60,6 +60,7 @@ public class Game {
                 .canBeTaken(false)
                 .canBeOpen(true)
                 .isOpen(false)
+                .key("key")
                 .items(trunkItems)
                 .build();
         ItemList safeItems = new ItemList();
@@ -71,6 +72,7 @@ public class Game {
                 .isVisible(false)
                 .canBeOpen(true)
                 .isOpen(false)
+                .key("code")
                 .canBeTaken(false)
                 .items(safeItems)
                 .build();
@@ -225,35 +227,6 @@ public class Game {
         to.add(item);
     }
 
-    private ItemList getAllObject(Room room) {
-        ItemList roomItems = room.getItems();
-        ItemList allItems = new ItemList();
-        if (roomItems != null) {
-            for (Item item : roomItems) {
-                switch (item.getClass().getSimpleName()) {
-                    case "Device":
-                        allItems.add(item);
-                        break;
-                    case "Container":
-                        allItems.add(item);
-                        ItemList containerItems = (((Container) item).getItems());
-                        for (Item i : containerItems) {
-                            allItems.add(i);
-                        }
-                        break;
-                    case "ItemContainer":
-                        allItems.add(item);
-                        ItemList itemContainerItems = (((ItemContainer) item).getItems());
-                        for (Item i : itemContainerItems) {
-                            allItems.add(i);
-                        }
-                        break;
-                }
-            }
-        }
-        return allItems;
-    }
-
     public String take(String object) {
         String response = "";
         if (player.getItems().thisObject(object) != null) {
@@ -266,7 +239,7 @@ public class Game {
                     case "Device":
                         if (item.getName().equals(object)) {
                             moveItem(item, player.getPosition().getItems(), player.getItems());
-                            response = "item has been taken!";
+                            response = item.getName() + " has been taken!";
                         }
                         break;
                     case "Container":
@@ -275,7 +248,7 @@ public class Game {
                             if (i.getName().equals(object)) {
                                 containerItems.remove(i);
                                 player.getItems().add(i);
-                                response = "item has been taken!";
+                                response = i.getName() + " has been taken!";
                                 break;
                             }
                         }
@@ -286,7 +259,7 @@ public class Game {
                             if (i.getName().equals(object)) {
                                 itemContainerItems.remove(i);
                                 player.getItems().add(i);
-                                response = "item has been taken!";
+                                response = i.getName() + " has been taken!";
                                 break;
                             }
                         }
@@ -304,7 +277,65 @@ public class Game {
             response = "you don't have this item!";
         } else {
             moveItem(item, player.getItems(), player.getPosition().getItems());
-            response = "item has been dropped!";
+            response = item.getName() + " has been dropped!";
+        }
+        return response;
+    }
+
+    public String open(String object) {
+        String response = "";
+        Item item = player.getPosition().getItems().thisObject(object);
+        if (!(item instanceof ItemContainer)) {
+            response = "can't open " + item.getName();
+            return response;
+        }
+        Item key = player.getItems().thisObject("key");
+        Item code = player.getItems().thisObject("paper");
+        if (item == null) {
+            response = "no item to open!";
+        }
+        if (((ItemContainer) item).canBeOpen()) {
+            if (((ItemContainer) item).isOpen()) {
+                response = item.getName() + " already open!";
+            } else {
+                if (((ItemContainer) item).isKeyNeeded()) {
+                    if (key != null) {
+                        ((ItemContainer) item).open(key.getName());
+                        response = item.getName() + " has been opened!";
+                        return response;
+                    }
+                    if (code != null) {
+                        ((ItemContainer) item).open(code.getName());
+                        response = item.getName() + " has been opened!";
+                        return response;
+                    }
+                    response = "key needed!";
+                } else {
+                    ((ItemContainer) item).open("");
+                    response = item.getName() + " has been opened!";
+                }
+            }
+        }
+        return response;
+    }
+
+    public String close(String object) {
+        String response = "";
+        Item item = player.getPosition().getItems().thisObject(object);
+        if (!(item instanceof ItemContainer)) {
+            response = "can't close " + item.getName();
+            return response;
+        }
+        if (item == null) {
+            response = "no item to close!";
+        }
+        if (((ItemContainer) item).canBeOpen()) {
+            if (!((ItemContainer) item).isOpen()) {
+                response = item.getName() + " already closed!";
+            } else {
+                ((ItemContainer) item).close();
+                response = item.getName() + " has been closed!";
+            }
         }
         return response;
     }

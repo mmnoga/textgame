@@ -3,14 +3,16 @@ package textgame.objects;
 public class ItemContainer extends Container {
     private boolean isOpen;
     private boolean canBeOpen;
+    private String key;
 
     ItemContainer(String name, String description,
                   boolean isVisible, boolean canBeTaken,
                   ItemList items,
-                  boolean isOpen, boolean canBeOpen) {
+                  boolean isOpen, boolean canBeOpen, String key) {
         super(name, description, isVisible, canBeTaken, items);
         this.isOpen = isOpen;
         this.canBeOpen = canBeOpen;
+        this.key = key;
     }
 
     public static Builder builder() {
@@ -20,6 +22,7 @@ public class ItemContainer extends Container {
     public static class Builder extends Container.Builder<Builder> {
         private boolean isOpen;
         private boolean canBeOpen;
+        private String key;
 
         public Builder isOpen(boolean isOpen) {
             this.isOpen = isOpen;
@@ -31,20 +34,35 @@ public class ItemContainer extends Container {
             return this;
         }
 
+        public Builder key(String key) {
+            this.key = key;
+            return this;
+        }
+
         @Override
         public ItemContainer build() {
-            return new ItemContainer(name, description, isVisible, canBeTaken, items, isOpen, canBeOpen);
+            return new ItemContainer(name, description, isVisible, canBeTaken, items, isOpen, canBeOpen, key);
         }
     }
 
-    public String open() {
+    public boolean isKeyNeeded() {
+        return this.key != null ? true : false;
+    }
+
+    public String open(String key) {
         if (isVisible()) {
             if (canBeOpen) {
                 if (isOpen) {
                     return "it's already open";
                 } else {
-                    isOpen = true;
-                    return "it's been opened";
+                    if (this.key != null) {
+                        if (this.key == key) {
+                            isOpen = true;
+                            return "it's been opened";
+                        } else {
+                            return "the key is needed!";
+                        }
+                    }
                 }
             } else {
                 return "it can't be open";
@@ -52,6 +70,7 @@ public class ItemContainer extends Container {
         } else {
             return "there's no item";
         }
+        return "";
     }
 
     public String close() {
@@ -71,8 +90,12 @@ public class ItemContainer extends Container {
         }
     }
 
-    public boolean isOpen(){
+    public boolean isOpen() {
         return isOpen;
+    }
+
+    public boolean canBeOpen() {
+        return canBeOpen;
     }
 
     public String toString() {
