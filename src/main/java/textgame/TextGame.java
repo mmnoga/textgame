@@ -19,6 +19,7 @@ public class TextGame {
         do {
             System.out.print("> ");
             input = buffer.readLine();
+
             switch (input) {
                 case "quit":
                     response = "end of the game!";

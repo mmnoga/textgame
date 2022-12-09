@@ -49,6 +49,10 @@ public class ItemContainer extends Container {
         return this.key != null ? true : false;
     }
 
+    public String getKey() {
+        return key;
+    }
+
     public String open(String key) {
         if (isVisible()) {
             if (canBeOpen) {

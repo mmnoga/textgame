@@ -3,7 +3,6 @@ package textgame.game;
 import textgame.helpers.Parser;
 import textgame.objects.*;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class Game {
                 .builder()
                 .name("treasure")
                 .description("$1000000 in cash!")
-                .isVisible(false)
+                .isVisible(true)
                 .canBeTaken(true)
                 .build();
         Device torch = Device
@@ -72,7 +71,7 @@ public class Game {
                 .isVisible(false)
                 .canBeOpen(true)
                 .isOpen(false)
-                .key("code")
+                .key("paper")
                 .canBeTaken(false)
                 .items(safeItems)
                 .build();
@@ -102,7 +101,7 @@ public class Game {
         player = Player
                 .builder()
                 .name("Dewey")
-                .description("fearless treasure hunter")
+                .description("fearless treasure hunter!")
                 .isVisible(true)
                 .items(playerItems)
                 .room(warehouse)
@@ -153,7 +152,7 @@ public class Game {
     }
 
     public void helpDescription() {
-        System.out.println("available commands: me, look, help, turnon, turnoff");
+        System.out.println("available commands: me, look, help, turnon, turnoff, take, drop, open, close");
         System.out.println("please enter a singe command or a command with object");
         System.out.println("enter quit to end the game");
     }
@@ -230,7 +229,8 @@ public class Game {
     public String take(String object) {
         String response = "";
         if (player.getItems().thisObject(object) != null) {
-            return response = "you have got this item!";
+            response = "you have got this item!";
+            return response;
         }
         ItemList roomItems = player.getPosition().getItems();
         if (roomItems != null) {
@@ -267,6 +267,7 @@ public class Game {
                 }
             }
         }
+        checkWin();
         return response;
     }
 
@@ -299,12 +300,13 @@ public class Game {
                 response = item.getName() + " already open!";
             } else {
                 if (((ItemContainer) item).isKeyNeeded()) {
-                    if (key != null) {
+                    String k = ((ItemContainer) item).getKey();
+                    if (key != null && key.getName() == k) {
                         ((ItemContainer) item).open(key.getName());
                         response = item.getName() + " has been opened!";
                         return response;
                     }
-                    if (code != null) {
+                    if (code != null && code.getName() == k) {
                         ((ItemContainer) item).open(code.getName());
                         response = item.getName() + " has been opened!";
                         return response;
@@ -351,6 +353,17 @@ public class Game {
         ItemList items = getPlayer().getPosition().getItems();
         for (Item item : items) {
             item.show();
+        }
+    }
+
+    private void checkWin(){
+        if (player.getItems() != null) {
+            for (Item i : player.getItems()) {
+                if (i.getName() == "treasure") {
+                    System.out.println("you have won!!!!!!!");
+                    System.exit(0);
+                }
+            }
         }
     }
 
