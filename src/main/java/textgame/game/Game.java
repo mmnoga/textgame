@@ -106,6 +106,9 @@ public class Game {
                 .items(playerItems)
                 .room(warehouse)
                 .build();
+
+        intro();
+        help();
     }
 
     public Player getPlayer() {
@@ -151,10 +154,16 @@ public class Game {
         return response;
     }
 
-    public void helpDescription() {
-        System.out.println("available commands: me, look, help, turnon, turnoff, take, drop, open, close");
-        System.out.println("please enter a singe command or a command with object");
-        System.out.println("enter quit to end the game");
+    public void intro(){
+        System.out.println("Welcome to The Mystery Warehouse Game!");
+        System.out.println("You are a treasure hunter and your task is to find a treasure.");
+        System.out.println();
+    }
+
+    public void help() {
+        System.out.println("Available commands: me, look, help, turnon, turnoff, take, drop, open, close.");
+        System.out.println("Please enter a singe command or a command with object.");
+        System.out.println("Enter quit to end the game.");
     }
 
     public void playerDescription() {

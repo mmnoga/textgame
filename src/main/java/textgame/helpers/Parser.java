@@ -23,7 +23,7 @@ public class Parser {
                     TextGame.game.roomDescription();
                     break;
                 case "help":
-                    TextGame.game.helpDescription();
+                    TextGame.game.help();
                     break;
                 default:
                     response = command + " not implemented!";
