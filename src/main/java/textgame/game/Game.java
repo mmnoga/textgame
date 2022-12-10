@@ -177,17 +177,25 @@ public class Game {
             if (!(itemPlayer instanceof Device)) {
                 response = "can't turn on this item!";
             } else {
-                ((Device) itemPlayer).turnOn();
-                response = "device's been turned on!";
-                showObject();
+                if(itemPlayer.isVisible()){
+                    ((Device) itemPlayer).turnOn();
+                    response = itemPlayer.getName() + "'s been turned on!";
+                    showObject();
+                } else {
+                    response = "no item!";
+                }
             }
         } else {
             if (!(itemRoom instanceof Device)) {
-                response = "can't turn on this item!";
+                response = "can't turn on " + itemRoom.getName();
             } else {
-                ((Device) itemRoom).turnOn();
-                response = "device's been turned on!";
-                showObject();
+                if(itemRoom.isVisible()){
+                    ((Device) itemRoom).turnOn();
+                    response = itemRoom.getName() + "'s been turned on!";
+                    showObject();
+                } else {
+                    response = "no item!";
+                }
             }
         }
         return response;
@@ -206,7 +214,7 @@ public class Game {
                 response = "can't turn off this item!";
             } else {
                 ((Device) itemPlayer).turnOff();
-                response = "device's been turned off!";
+                response = itemPlayer.getName() + "'s been turned off!";
                 hideObjects();
             }
         } else {
@@ -214,7 +222,7 @@ public class Game {
                 response = "can't turn off this item!";
             } else {
                 ((Device) itemRoom).turnOn();
-                response = "device's been turned off!";
+                response = itemRoom.getName() + "'s been turned off!";
                 hideObjects();
             }
         }
@@ -356,7 +364,7 @@ public class Game {
         }
     }
 
-    private void checkWin(){
+    private void checkWin() {
         if (player.getItems() != null) {
             for (Item i : player.getItems()) {
                 if (i.getName() == "treasure") {

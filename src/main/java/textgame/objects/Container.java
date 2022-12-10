@@ -47,11 +47,11 @@ public class Container extends Item {
             } else {
                 desc += "\n\tit can't be taken";
             }
-            if (getItems() != null) {
+            if (getItems().size() > 0 ) {
                 desc += "\n\titems on the " + getName() + ":";
                 desc += "\n\t" + getItems().toString();
             } else {
-                desc += "\tthere's no items on the " + getName();
+                desc += "\n\tthere's no items on the " + getName();
             }
         }
         return desc;
