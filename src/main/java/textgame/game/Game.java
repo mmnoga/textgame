@@ -12,7 +12,7 @@ public class Game {
     public Game() {
         Item paper = Item
                 .builder()
-                .name("paper")
+                .name("code")
                 .description("a piece of paper with code: 6-3-9")
                 .isVisible(true)
                 .canBeTaken(true)
@@ -71,7 +71,7 @@ public class Game {
                 .isVisible(false)
                 .canBeOpen(true)
                 .isOpen(false)
-                .key("paper")
+                .key("code")
                 .canBeTaken(false)
                 .items(safeItems)
                 .build();
@@ -299,7 +299,7 @@ public class Game {
             return response;
         }
         Item key = player.getItems().thisObject("key");
-        Item code = player.getItems().thisObject("paper");
+        Item code = player.getItems().thisObject("code");
         if (item == null) {
             response = "no item to open!";
         }
@@ -319,7 +319,7 @@ public class Game {
                         response = item.getName() + " has been opened!";
                         return response;
                     }
-                    response = "key needed!";
+                    response = ((ItemContainer) item).getKey() +" needed!";
                 } else {
                     ((ItemContainer) item).open("");
                     response = item.getName() + " has been opened!";

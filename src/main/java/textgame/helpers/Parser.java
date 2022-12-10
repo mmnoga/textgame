@@ -9,7 +9,7 @@ import java.util.List;
 public class Parser {
     private static List<String> oneWordCommands = new ArrayList<>(Arrays.asList("help", "tools", "me", "look"));
     private static List<String> twoWordsCommands = new ArrayList<>(Arrays.asList("take", "drop", "open", "close", "turnon", "turnoff"));
-    private static List<String> items = new ArrayList<>(Arrays.asList("key", "paper", "trunk", "table", "lamp", "torch", "safe", "treasure"));
+    private static List<String> items = new ArrayList<>(Arrays.asList("key", "code", "trunk", "table", "lamp", "torch", "safe", "treasure"));
 
     public static String executeOneWordCommand(List<String> commandList) {
         String response = "";
