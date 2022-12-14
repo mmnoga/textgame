@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    private static List<String> oneWordCommands = new ArrayList<>(Arrays.asList("help", "tools", "me", "look"));
+    private static List<String> oneWordCommands = new ArrayList<>(Arrays.asList("help", "tools", "me", "look","time"));
     private static List<String> twoWordsCommands = new ArrayList<>(Arrays.asList("take", "drop", "open", "close", "turnon", "turnoff"));
     private static List<String> items = new ArrayList<>(Arrays.asList("key", "code", "trunk", "table", "lamp", "torch", "safe", "treasure"));
 
@@ -21,6 +21,9 @@ public class Parser {
                     break;
                 case "look":
                     TextGame.game.roomDescription();
+                    break;
+                case "time":
+                    TextGame.game.getTime();
                     break;
                 case "help":
                     TextGame.game.help();

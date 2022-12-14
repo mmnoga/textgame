@@ -15,7 +15,6 @@ public class TextGame {
         buffer = new BufferedReader(new InputStreamReader(System.in));
         String input = "";
         String response = "";
-
         do {
             System.out.print("> ");
             input = buffer.readLine();

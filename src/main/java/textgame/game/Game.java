@@ -1,6 +1,7 @@
 package textgame.game;
 
 import textgame.helpers.Parser;
+import textgame.helpers.Timer;
 import textgame.objects.*;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class Game {
     private Player player;
+    private Timer timer;
 
     public Game() {
         Item paper = Item
@@ -93,7 +95,7 @@ public class Game {
         Room warehouse = Room
                 .builder()
                 .name("warehouse")
-                .description("old, creepy and completely dark place")
+                .description("old, creepy and completely dark place.")
                 .items(warehouseItems)
                 .build();
         ItemList playerItems = new ItemList();
@@ -109,6 +111,7 @@ public class Game {
 
         intro();
         help();
+        startTimer();
     }
 
     public Player getPlayer() {
@@ -157,11 +160,11 @@ public class Game {
     public void intro(){
         System.out.println("Welcome to The Mystery Warehouse Game!");
         System.out.println("You are a treasure hunter and your task is to find a treasure.");
-        System.out.println();
+        System.out.println("Your time is 5 minutes!\n");
     }
 
     public void help() {
-        System.out.println("Available commands: me, look, help, turnon, turnoff, take, drop, open, close.");
+        System.out.println("Available commands: me, look, help, turnon, turnoff, take, drop, open, close, time.");
         System.out.println("Please enter a singe command or a command with object.");
         System.out.println("Enter quit to end the game.");
     }
@@ -171,6 +174,9 @@ public class Game {
     }
 
     public void roomDescription() {
+        System.out.print("You are in " + getPlayer().getPosition().getName() + " - ");
+        System.out.println(getPlayer().getPosition().getDescription());
+        System.out.println("You can see:");
         System.out.println(getPlayer().getPosition().getItems().toString());
     }
 
@@ -377,11 +383,20 @@ public class Game {
         if (player.getItems() != null) {
             for (Item i : player.getItems()) {
                 if (i.getName() == "treasure") {
-                    System.out.println("you have won!!!!!!!");
+                    System.out.println("You have won!!!!!!!");
                     System.exit(0);
                 }
             }
         }
+    }
+
+    public void getTime(){
+        timer.printElapsedTime();
+    }
+
+    private void startTimer(){
+        timer = new Timer(300);
+        timer.start();
     }
 
 }
